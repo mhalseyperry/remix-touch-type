@@ -1,52 +1,48 @@
-import React, { createContext, useContext, useState } from 'react';
-import { useKeymaps } from '../hooks/useKeymaps';
+import React, { createContext, useContext, useState } from "react";
+import type { Keymap, KeymapKey, Keymaps } from "~/config/keymaps";
+import { KEYMAPS } from "~/config/keymaps";
 
 interface KeymapContextValue {
-    keymaps: { [key: string]: any };
+  keymaps: Keymaps;
 
-    primaryKeymapKey: string;
-    primaryKeymap: { [key: string]: string };
+  primaryKeymapKey: string;
 
-    punctuation: boolean;
+  primaryKeymap: Keymap;
+  setPrimaryKeymap: (value: KeymapKey) => void;
 
-    setPunctuation: (value: boolean) => void;
-    setPrimaryKeymap: (value: string) => void;
+  punctuation: boolean;
+  setPunctuation: (value: boolean) => void;
 }
-const keymaps = useKeymaps();
 
-const KeymapContext = createContext<KeymapContextValue>({
-    keymaps: keymaps,
-    primaryKeymapKey: 'Russian',
-    primaryKeymap: keymaps['Russian'],
-    punctuation: false,
-    setPunctuation: () => {},
-    setPrimaryKeymap: () => {},
-});
+const KeymapContext = createContext<KeymapContextValue>(
+  {} as KeymapContextValue
+);
 
 export const useKeymap = () => useContext(KeymapContext);
 
-export const KeymapProvider: React.FC<React.PropsWithChildren<{}>> = ({
-    children,
-}) => {
-    const [primaryKeymap, setPrimaryKeymap] = useState('Russian');
+type KeymapProviderProps = {
+  children: React.ReactNode;
+};
 
-    const [punctuation, setPunctuation] = useState(true);
+export function KeymapProvider({ children }: KeymapProviderProps) {
+  const [primaryKeymap, setPrimaryKeymap] = useState<KeymapKey>("RUSSIAN");
+  const [punctuation, setPunctuation] = useState(true);
 
-    const value = {
-        keymaps,
+  return (
+    <KeymapContext.Provider
+      value={{
+        keymaps: KEYMAPS,
 
         primaryKeymapKey: primaryKeymap,
-        primaryKeymap: (keymaps as { [key: string]: any })[primaryKeymap],
+        primaryKeymap: KEYMAPS[primaryKeymap],
 
         punctuation: punctuation,
 
         setPunctuation,
         setPrimaryKeymap,
-    };
-
-    return (
-        <KeymapContext.Provider value={value}>
-            {children}
-        </KeymapContext.Provider>
-    );
-};
+      }}
+    >
+      {children}
+    </KeymapContext.Provider>
+  );
+}
