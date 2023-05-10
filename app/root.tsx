@@ -1,4 +1,4 @@
-import { LiveReload } from "@remix-run/react";
+import { Link, Links, LiveReload, Outlet, Scripts } from "@remix-run/react";
 
 import type { LinksFunction } from '@remix-run/node';
 
@@ -8,19 +8,18 @@ export let links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: tailwindStyles }];
 };
 
-export default function App() {
+export default function Root() {
   return (
+
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <title>Remix: So great, it's funny!</title>
+        <title>Touch Type</title>
+        <Links />
+        <Scripts />
       </head>
       <body>
-        <div className="flex justify-center">
-        <p className="text-6xl text-red-900">
-        Hello world
-        </p>
-        </div>
+        <Outlet />
 
         <LiveReload />
       </body>
