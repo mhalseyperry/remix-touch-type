@@ -42,6 +42,12 @@ export default function LetterMode() {
           primaryKeymap[pastKey]
       );
       if (e.keyCode === currentKey) {
+        console.log(
+          "correct " +
+            primaryKeymap[e.keyCode] +
+            " is equal to " +
+            primaryKeymap[currentKey]
+        );
         setCurrentKey(futureKey);
         setFutureKey(getRandKey(primaryKeymap));
         setPastKey(currentKey);
@@ -49,6 +55,8 @@ export default function LetterMode() {
     };
 
     document.addEventListener("keyup", handleKeyUp);
+
+    return () => document.removeEventListener("keyup", handleKeyUp);
   }, [currentKey, primaryKeymap, pastKey, futureKey]);
 
   return (

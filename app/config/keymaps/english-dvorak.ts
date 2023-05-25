@@ -22,7 +22,7 @@ export const ENGLISH_DVORAK: Keymap = {
   74: "H",
   75: "T",
   76: "N",
-  186: "S",
+  59: "S",
   222: "-",
   90: ";", //row 3
   88: "Q",

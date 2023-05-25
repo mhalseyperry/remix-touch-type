@@ -25,7 +25,7 @@ type KeymapProviderProps = {
 };
 
 export function KeymapProvider({ children }: KeymapProviderProps) {
-  const [primaryKeymap, setPrimaryKeymap] = useState<KeymapKey>("RUSSIAN");
+  const [primaryKeymap, setPrimaryKeymap] = useState<KeymapKey>("ENGLISH");
   const [punctuation, setPunctuation] = useState(true);
 
   return (
