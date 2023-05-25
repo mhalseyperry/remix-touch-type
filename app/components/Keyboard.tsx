@@ -32,13 +32,13 @@ export default function Keyboard({ currentKey }: { currentKey: number }) {
         <div className={`flex flex-row ml-${i * 6}`} key={row.join("-")}>
           {row.map((keyCode) => (
             <div
-              className={`w-10 h-10 m-1 p-1 text-white dark:text-black
+              className={`w-10 h-10 m-1 p-1 text-white
                  ${
                    keyCode === keyDown
                      ? keyCode === currentKey
                        ? "bg-correct"
                        : "bg-incorrect"
-                     : "bg-black dark:bg-white"
+                     : "bg-black"
                  }`}
               key={keyCode}
             >
